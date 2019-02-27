@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+
+{% block title %}Solution Architect Database{% endblock %}
+
+{% block header %}<link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">{% endblock %}
+
+{% block content %}
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron home-jumbo">
+      <div class="container">
+        <img src="{{ url_for('static', filename='assets/logo_10.JPG') }}" width="1020" />
+        <h2>Solution Architect Database!</h2>
+        <p>A place for keeping track of things you're told to keep track of
+    </div>
+    <div class="container">
+      <h3>Select your name from below</h3>
+      <form  method="POST" action="{{ url_for('.main_select')}}">
+          <select name ="sa">
+                    <option value="Rick Kauffman">Rick Kauffman</option>
+                    <option value="James MacDonald">Jim MacDonald</option>
+                    <option value="Hui Lui">Hui Liu</option>
+                    <option value="Raj Das">Raj Das</option>
+                    <option value="Sri Parameswaran">Sri Parameswaran</option>
+                    <option value="Tony Molica">Tony Molica</option>
+                    <option value="Jairo Pinilla">Jairo Pinilla</option>
+                    <option value="Colm OBrien">Colm OBrien</option>
+                    <option value="Rick LaPointe">Rick LaPointe</option>
+                    <option value="Nick Cooke">Nick Cooke</option>
+                    <option value="Yuan Wang">Yuan Wang</option>
+                    <option value="Keith Harrell">Keith Harrell</option>
+                    <option value="Rick Hawkins">Rick Hawkins</option>
+
+
+          </select>
+          <br>
+          <hr>
+          <button type="submit" class="btn btn-primary btn-sm btn-block">Choose Engineer</button>
+      </form>
+
+
+{% endblock %}

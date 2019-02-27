@@ -1,0 +1,42 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url_for('main_app.main') }}">
+                <img alt="antigua logo" width="80" height="80" src="{{ url_for('static', filename='assets/logo5.JPG') }}">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <div class="row">
+                <ul class="nav nav-tabs">
+
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Entries
+                       <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="{{ url_for('engineers_app.newentry') }}">New Entry</a></li>
+                          <li><a href="{{ url_for('engineers_app.listentry') }}">List Entries</a></li>
+                          <li><a href="{{ url_for('engineers_app.deleteentry') }}">Delete Entry</a></li>
+                          <li><a href="{{ url_for('engineers_app.editentry') }}">Edit Entry</a></li>
+                          <li><a href="{{ url_for('engineers_app.cloneentry') }}">Clone Entry</a></li>
+                      </ul>
+                  </li>
+
+
+
+                   <li>
+                       <a href="http://www.wookieware.com" class="navbar-link">About</a></p>
+                   </li>
+                   <li>
+                       <a href="help" class="navbar-link">Help!</a></p>
+                   </li>
+                   <li>
+                       <a href="main" class="navbar-link">Home</a></p>
+                   </li>
+
+                </li>
+              </ul>
+            </ul>
+        </div>
+    </div>
+</nav>

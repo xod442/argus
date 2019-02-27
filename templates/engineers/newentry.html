@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}New Entry{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="col-xs-10">
+    <h3>New Entry</h3>
+
+    {% from "_formhelpers.html" import render_field %}
+    <form  method="POST" action="{{ url_for('.newentry')}}" role="form">
+
+      {{ form.hidden_tag() }}
+
+      <table class="table">
+        <tr>
+          <td>Record Number: <input type=text class="form-control" value={{more[2]}} required name="num" readonly></td>
+          <td>Solutions Architect: <input type=text class="form-control" value={{more[0]}} required name="sa" readonly></td>
+          <td>Time Stamp: <input type=text class="form-control" value={{more[1]}} required name="now" readonly></td>
+
+        </tr>
+        <tr>
+          <td>Entry: <textarea rows="4" cols="65" class="form-control" required name="message"></textarea></td>
+        </tr>
+        <tr>
+            <td>Concerns/Issues: <textarea rows="4" cols="65" class="form-control" required name="concern"></textarea></td>
+        </tr>
+
+      </table>
+
+      <button type="submit" class="btn btn-primary btn-sm btn-block">Create</button>
+
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

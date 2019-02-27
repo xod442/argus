@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Fabric{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="row">
+
+  <div class="col-md-offset-3 col-md-6">
+
+    <h3>Link Variables</h3>
+
+    {% from "_formhelpers.html" import render_field %}
+    <form method="POST" action="{{ url_for('.link')}}" role="form">
+
+      {{ form.hidden_tag() }}
+
+      {{ render_field(form.l_id, class='form-control') }}
+      {{ render_field(form.project, class='form-control') }}
+      {{ render_field(form.sa, class='form-control') }}
+      {{ render_field(form.ss, class='form-control') }}
+      {{ render_field(form.sp, class='form-control') }}
+      {{ render_field(form.sip, class='form-control') }}
+      {{ render_field(form.sm, class='form-control') }}
+      {{ render_field(form.sn, class='form-control') }}
+      {{ render_field(form.la, class='form-control') }}
+      {{ render_field(form.ls, class='form-control') }}
+      {{ render_field(form.lp, class='form-control') }}
+      {{ render_field(form.lip, class='form-control') }}
+      {{ render_field(form.lm, class='form-control') }}
+      {{ render_field(form.ln, class='form-control') }}
+
+
+      <button type="submit" class="btn btn-default">Link</button>
+
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

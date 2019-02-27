@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Entry{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="col-xs-10">
+    <h3>Edit Entry</h3>
+
+    {% from "_formhelpers.html" import render_field %}
+    <form  method="POST" action="{{ url_for('.upentry')}}" role="form">
+
+      <table class="table">
+        <tr>
+          <td>Record Number: <input type=text class="form-control" value={{more.num}} required name="num" readonly></td>
+          <td>Solutions Architect: <input type=text class="form-control" value={{more.sa}} required name="sa" readonly></td>
+          <td>Time Stamp: <input type=text class="form-control" value={{more.now}} required name="now" readonly></td>
+
+        </tr>
+        <tr>
+          <td>Entry: <textarea rows="4" cols="65" class="form-control" required name="message">{{more.message}}</textarea></td>
+        </tr>
+        <tr>
+            <td>Concerns/Issues: <textarea rows="4" cols="65" class="form-control" required name="concern">{{more.concern}}</textarea></td>
+        </tr>
+
+      </table>
+
+      <button type="submit" class="btn btn-primary btn-sm btn-block">Save Edit</button>
+
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

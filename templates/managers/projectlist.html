@@ -1,0 +1,49 @@
+
+{% extends "base.html" %}
+
+{% block title %}Welcome to Antigua{% endblock %}
+
+{% block header %}<link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="row">
+
+<h2> List-O-PODs</h2>
+<form action = "{{ url_for('main_app.main') }}" method = "get">
+<div class="container">
+  <table class="table">
+   <thead><tr>
+    <th>Project</th><th>management</th><th>fabric</th><th>router id</th><th>gateway</th><th>Loopback IP</th>
+    <th>ssh user</th><th>Spines</th><th>leafs</th><th>spines ASN</th><th>combine leaf asn</th>
+  </tr></thead>
+  <tbody>
+  {% for i in project %}
+    <tr>
+      <td>{{ i.project }}</td>
+      <td>{{ i.mgmt_ip }}</td>
+      <td>{{ i.networkz }}</td>
+      <td>{{ i.rtr_idz }}</td>
+      <td>{{ i.Gateway }}</td>
+      <td>{{ i.loopbackz }}</td>
+      <td>{{ i.ssh_user }}</td>
+      <td>{{ i.spines }}</td>
+      <td>{{ i.leafs }}</td>
+      <td>{{ i.spineAsn }}</td>
+      <td>{{ i.combLeaf }}</td>
+
+
+    </tr>
+  </tbody>
+
+     {% endfor %}
+    </table>
+</div>
+    <hr>
+    <p> Please retun to main menu </p>
+</from>
+<hr>
+<button type="submit" class="btn btn-primary btn-sm btn-block">Main Menu</button>
+{% endblock %}

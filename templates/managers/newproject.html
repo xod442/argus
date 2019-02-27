@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}New Project{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="col-xs-10">
+    <h3>Build New POD</h3>
+
+    {% from "_formhelpers.html" import render_field %}
+    <form  method="POST" action="{{ url_for('.project')}}" role="form">
+
+      {{ form.hidden_tag() }}
+      <table class="table">
+        <tr>
+          <td>{{ render_field(form.project, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.mgmt_ip, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.rtr_idz, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.Gateway, class='form-control input-sm') }}</td>
+        </tr>
+        <tr>
+          <td>{{ render_field(form.loopbackz, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.networkz, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.ssh_user, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.ssh_pass, **{"class": "form-control input-sm", "aria-described-by": "passwordHelpBlock"}) }}</td>
+        </tr>
+        <tr>
+          <td>{{ render_field(form.spines, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.leafs, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.sModel, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.lModel, class='form-control input-sm') }}</td>
+        </tr>
+        <tr>
+          <td>{{ render_field(form.spineAsn, class='form-control input-sm') }}</td>
+          <td>{{ render_field(form.combLeaf, class='form-control input-sm') }}</td>
+        </tr>
+      </table>
+      <input type=hidden class="form-control" value=' ' name="cvp_user">
+      <input type=hidden class="form-control" value=' ' name="cvp_pass">
+      <button type="submit" class="btn btn-primary btn-sm btn-block">Build</button>
+
+    </form>
+
+  </div>
+
+</div>
+{% endblock %}

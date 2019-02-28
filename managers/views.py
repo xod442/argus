@@ -34,9 +34,9 @@ from database.models import Database
 from database.forms import DatabaseForm
 from database.temp import Temp
 from database.number import Number
+from database.engineers import Engineers
 
 managers_app = Blueprint('managers_app', __name__)
-
 
 @managers_app.route('/listentryx', methods=('GET', 'POST'))
 def listentryx():
@@ -47,28 +47,53 @@ def listentryx():
     entries = []
     for e in Database.objects():
         entries.append(e)
+
     return render_template('managers/listentryx.html', entries=entries)
 
-@managers_app.route('/bulk', methods=('GET', 'POST'))
-def bulk():
+@managers_app.route('/download', methods=('GET', 'POST'))
+def download():
     '''
     List all entries from the database by SA
 
     '''
     counter = 0
     cr ='\n'
-    switch = Switches.query.all()
-    f = open(os.path.join(APP_STATIC, 'switchdb.csv'), 'w')
-    while (counter < len(switch)):
-        line = switch[counter].mac+','+switch[counter].sysname+','+switch[counter].mgmt_ip+','+ \
-            switch[counter].mgmt_sub+','+switch[counter].gateway+','+switch[counter].fanDirection \
-                +','+switch[counter].localuser+','+switch[counter].passwd+','+  \
-                    switch[counter].tftpserver+','+switch[counter].rolex
-        f.write(line)
-        counter = counter + 1
-    f.close()
-    flash('Datbase dumped to file /static/switchdb.csv')
-    return render_template('dbdump.html')
+
+
+    if request.method == 'POST':
+        # Get desired project
+        start = request.form['start']
+        start = start.encode('utf-8')
+        start = int(start)
+        # Set the start back a month to get any weeks that cross month bounry
+        if start == 1:
+            start = 0
+        else:
+            start = start - 1
+
+        # Open file for writing
+        f = open('/opt/argus/static/sa_activities.csv', 'w')
+
+        entries = []
+        for e in Database.objects():
+            e.now = e.now.encode('utf-8')
+
+            check = e.now[5:7]
+            check = int(check)
+
+
+            # Look for matching Entries
+            print "check %i, start %i" % (check,start)
+            if check > start:
+                line = str(e.num)+','+str(e.now)+','+str(e.sa)+','+str(e.message)+','+str(e.concern)
+                f.write(line)
+                f.write(cr)
+
+        f.close()
+        return render_template('managers/download.html', entries=entries)
+
+    return render_template('managers/dateselect.html')
+
 
 @managers_app.route('/name', methods=('GET', 'POST'))
 def name():
@@ -76,7 +101,20 @@ def name():
     List all entries from the database by SA
 
     '''
-    entries = []
-    for e in Database.objects():
-        entries.append(e)
-    return render_template('managers/listentryx.html', entries=entries)
+
+    if request.method == 'POST':
+        # Get desired project
+        sa = request.form['sa']
+        entries = []
+        for e in Database.objects():
+            if e.sa == sa:
+                entries.append(e)
+        return render_template('managers/listsaentryx.html', entries=entries, sa=sa)
+    # Get engineers
+    eng_list = []
+    for eng in Engineers.objects():
+        eng.name = eng.name.encode('utf-8')
+        eng_list.append(eng.name)
+
+
+    return render_template('managers/salistselect.html', eng_list=eng_list)

@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block title %}SA Sleect{% endblock %}
+
+{% block header %}<link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">{% endblock %}
+
+{% block content %}
+
+{% include "navbar_manager.html" %}
+
+<div class="row">
+
+<h2> Select Entry To Edit</h2>
+
+  <p> Choose the SA from the drop down list </p>
+
+  <form  method="POST" action="{{ url_for('.name')}}">
+    <select name ="sa">
+            {% for name in eng_list %}
+              <option value={{name}}>{{name}}</option>
+              {% endfor %}
+    </select>
+    <br>
+    <hr>
+    <button type="submit" class="btn btn-primary btn-sm btn-block">Select SA</button>
+</from>
+{% endblock %}

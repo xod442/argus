@@ -1,0 +1,46 @@
+
+{% extends "base.html" %}
+
+
+{% block title %}Date Sleect{% endblock %}
+
+{% block header %}<link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">{% endblock %}
+
+
+{% include "navbar_manager.html" %}
+
+{% block content %}
+
+<div class="row">
+
+<h2> Excel Download</h2>
+
+  <p> Choose the Start Date from the drop down list </p>
+  <p> The system will collect all entries a month before and after your selection.</P>
+
+
+  <form  method="POST" action="{{ url_for('.download')}}">
+    <select name ="start">
+
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+
+
+
+    </select>
+    <br>
+    <hr>
+    <button type="submit" class="btn btn-primary btn-sm btn-block">Download</button>
+</from>
+
+{% endblock %}

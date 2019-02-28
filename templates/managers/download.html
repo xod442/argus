@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+
+{% block title %}SA Sleect{% endblock %}
+
+{% block header %}<link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">{% endblock %}
+
+{% block content %}
+
+{% include "navbar_manager.html" %}
+
+<div class="row">
+
+<h2> Select Entry To Edit</h2>
+
+      <p>Click on the report logo to download the csv file:<p>
+
+  <form  method="POST" action="{{ url_for('.name')}}">
+
+
+      <a href="static/sa_activities.csv" download>
+          <img src="{{ url_for('static', filename='assets/report.png') }}" alt="SA Report" width="104" height="142">
+            </a>
+
+            <p><b>Note:</b> The download attribute is not supported in Edge version 12, IE,
+              Safari 10 (and earlier), or Opera version 12 (and earlier).</p>
+
+            </form>
+{% endblock %}

@@ -33,6 +33,7 @@ from mongoengine import Q
 
 # Place to stach the user temporarily
 from database.temp import Temp
+from database.engineers import Engineers
 
 main_app = Blueprint('main_app', __name__)
 
@@ -66,7 +67,15 @@ def main_select():
         return render_template('engineers/dberror.html')
 
     if sa == 'Rick Hawkins':
-        return render_template('main/manager.html', sa=sa)
+
+        # Get engineers
+        eng_list = []
+        for eng in Engineers.objects():
+            eng.name = eng.name.encode('utf-8')
+            eng_list.append(eng.name)
+
+
+        return render_template('main/manager.html', sa=sa, eng=eng_list)
     else:
         return render_template('main/engineer.html', sa=sa)
 
@@ -95,5 +104,11 @@ def main_manager():
     sa = sa.encode('utf-8')
     sa=sa.replace(" ", "-")
 
+    # Get engineers
+    eng_list = []
+    for eng in Engineers.objects():
+        eng.name = eng.name.encode('utf-8')
+        eng_list.append(eng.name)
 
-    return render_template('main/manager.html', sa=sa)
+
+    return render_template('main/manager.html', sa=sa, eng=eng_list)

@@ -29,19 +29,54 @@ from flask import Blueprint, render_template, request, redirect, session, url_fo
 import os
 from werkzeug import secure_filename
 from mongoengine import Q
-
-#from project.models import Project
-#from project.forms import ProjectForm
+import datetime
+from database.models import Database
+from database.forms import DatabaseForm
+from database.temp import Temp
+from database.number import Number
 
 managers_app = Blueprint('managers_app', __name__)
 
-@managers_app.route('/listentrys', methods=('GET', 'POST'))
-def listentrys():
+
+@managers_app.route('/listentryx', methods=('GET', 'POST'))
+def listentryx():
     '''
-    Adds a new project to the project database
-    Reads form variables, creates a project variable and
-    saves it to the mongo database.
+    List all entries from the database by SA
 
     '''
+    entries = []
+    for e in Database.objects():
+        entries.append(e)
+    return render_template('managers/listentryx.html', entries=entries)
 
-    return render_template('main/main.html')
+@managers_app.route('/bulk', methods=('GET', 'POST'))
+def bulk():
+    '''
+    List all entries from the database by SA
+
+    '''
+    counter = 0
+    cr ='\n'
+    switch = Switches.query.all()
+    f = open(os.path.join(APP_STATIC, 'switchdb.csv'), 'w')
+    while (counter < len(switch)):
+        line = switch[counter].mac+','+switch[counter].sysname+','+switch[counter].mgmt_ip+','+ \
+            switch[counter].mgmt_sub+','+switch[counter].gateway+','+switch[counter].fanDirection \
+                +','+switch[counter].localuser+','+switch[counter].passwd+','+  \
+                    switch[counter].tftpserver+','+switch[counter].rolex
+        f.write(line)
+        counter = counter + 1
+    f.close()
+    flash('Datbase dumped to file /static/switchdb.csv')
+    return render_template('dbdump.html')
+
+@managers_app.route('/name', methods=('GET', 'POST'))
+def name():
+    '''
+    List all entries from the database by SA
+
+    '''
+    entries = []
+    for e in Database.objects():
+        entries.append(e)
+    return render_template('managers/listentryx.html', entries=entries)
